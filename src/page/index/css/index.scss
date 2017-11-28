@@ -1,0 +1,34 @@
+/**
+ * @require src/widget/reset/reset.css
+ */
+
+@import './style.css';
+
+body {
+  background: #888;
+  div {
+    font-size: 18px;
+  }
+  img {
+    display: block;
+  }
+  .img1 {
+    margin-top: 20px;
+    width: 150px;
+    height: 150px;
+    background: url('../images/award_03.png?__inline');
+    background-repeat: no-repeat;
+  }
+  .img2 {
+    width: 150px;
+    height: 150px;
+    background: url('../images/award_06.png?__sprite');
+    background-repeat: no-repeat;
+  }
+  .img3 {
+    width: 150px;
+    height: 150px;
+    background: url('../images/award_07.png?__sprite');
+    background-repeat: no-repeat;
+  }
+}
