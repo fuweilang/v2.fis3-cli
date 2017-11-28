@@ -1,4 +1,4 @@
-# 基于fis3的PC端纯静态解决方案
+# 基于fis3的纯静态解决方案
 
 ## 采用fis3-hook-node_modules的组件方案
 
