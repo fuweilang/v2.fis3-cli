@@ -5,9 +5,9 @@
   "author": "Nicolas",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node build/dev.js all",
-    "prod": "node build/product.js",
-    "prod-with-hash": "node build/product-with-hash.js"
+    "dev": "node build/dev.js",
+    "prod": "node build/prod.js",
+    "rm": "node build/rm.js"
   },
   "devDependencies": {
     "chalk": "^1.1.3",

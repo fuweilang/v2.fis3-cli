@@ -1,9 +1,8 @@
 "use strict";
 
-require('shelljs/global')
 let shell = require('shelljs');
 let fs = require('fs')
-let src = process.argv[2]
+let argv = process.argv[2] || 'all'
 let reg = /[^\w\/]/
 
 if (!shell.which('fis3')) {
@@ -11,40 +10,33 @@ if (!shell.which('fis3')) {
   return;
 }
 
-if (!src) {
+if (!argv) {
   console.log(`
-    npm run dev all: all compile
-    npm run dev [name]: [name] is the path whose is compiled
+    npm run dev all | npm run dev: all compile
+    npm run dev [name]: [name] is the path whose is chosed to compile
   `)
   return
 }
 
-if (src.match(reg)) {
+if (argv.match(reg)) {
   console.log('warning: type the right src argument')
   return
 }
 
-if (src == 'all') {
+if (argv == 'all') {
   console.log(`run all`)
-  
   require('./dev-server.js')
 } else {
-  src = `./src/page/${src}`
+  var src = `./src/page/${argv}`
   fs.exists(src, function (exists) {
     if (!exists) {
       shell.mkdir('-p', src)
       shell.cp('-R', './src/widget/layout/', src)
-      console.log(`create ${src} and run ${src}`)
-
+      console.log(`create ${src} and run all`)
       require('./dev-server.js')
     } else {
-      console.log(`run ${src}`)
-
+      console.log(`has ${src} in directory and run all`)
       require('./dev-server.js')
     }
   })
 }
-
-
-
-

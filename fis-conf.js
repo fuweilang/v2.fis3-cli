@@ -136,22 +136,15 @@ fis.hook('node_modules', {
     shimProcess : false
 })
 
-
 let currentMedia = fis.project.currentMedia()
-let allowedProductMedias = ['prod', 'prod-with-hash']
-let isValidMedia = allowedProductMedias.some(function (v) {
-    return v === currentMedia
-})
-if(!isValidMedia){
+if (currentMedia !== 'prod') {
     return
 }
 
-let useHash = currentMedia === 'prod-with-hash' // prod-with-hash环境才使用hash
-
 // optimize
-fis.media(currentMedia)
+fis.media('prod')
     .match('*.{js,jsx,ts,tsx,es6,es}', {
-        useHash : useHash,
+        useHash : true,
         optimizer: fis.plugin('uglify-js', {
             mangle: {
                 expect: ['require', 'define'] //不想被压的
@@ -159,7 +152,7 @@ fis.media(currentMedia)
         })
     })
     .match('*.{scss,sass,less,css}', {
-        useHash : useHash,
+        useHash : true,
         useSprite: true,
         optimizer: fis.plugin('clean-css', {
             'keepSpecialComments': 0
@@ -169,12 +162,12 @@ fis.media(currentMedia)
         optimizer: fis.plugin('png-compressor') // 用 fis-optimizer-png-compressor 压缩 png 图片
     })
     .match('*.{png,gif,jpg,jpeg,eot,ttf,woff,svg}', { //静态资源引用增加url前缀
-        useHash : useHash,
+        useHash : true,
         // url : configBuild.staticUrlPrefix  + '/' + staticRoot + '$0'
     })
 
 // pack
-fis.media(currentMedia)
+fis.media('prod')
     // 启用打包插件，必须匹配 ::packager
     .match('::packager', {
         postpackager: fis.plugin('loader', {
