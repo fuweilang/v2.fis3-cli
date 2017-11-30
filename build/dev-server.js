@@ -4,7 +4,7 @@ let configBuild = require('../config/index.js');
 let path = require('path');
 
 let configBuildPath = path.resolve(__dirname, '../config/index.js');
-let outputPath = path.resolve(configBuildPath, configBuild.dev);
+let outputPath = path.resolve(configBuild.dev)
 
 if (shell.test('-d', outputPath)) {
   shell.rm('-rf', outputPath);

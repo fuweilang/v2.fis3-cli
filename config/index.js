@@ -3,8 +3,8 @@ var config = {
   "staticUrlPrefix" : "",
   "tplRoot" : "page",
   "port" : 3000,
-  "dev" : "../../dev",
-  'pro': '../../dist'
+  "dev" : "dev",
+  'pro': 'dist'
 }
 
 module.exports = config;

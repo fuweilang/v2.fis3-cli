@@ -8,7 +8,7 @@ let path = require('path');
 let argv = process.argv[2]
 
 let configBuildPath = path.resolve(__dirname, '../config/index.js');
-let outputPath = path.resolve(configBuildPath, configBuild.pro);
+let outputPath = path.resolve(configBuild.pro)
 let staticRootPath = path.resolve(outputPath, configBuild.staticRoot);
 let tplRootPath = path.resolve(outputPath, configBuild.tplRoot);
 
