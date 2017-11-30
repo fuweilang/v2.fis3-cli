@@ -1,7 +1,7 @@
 "use strict";
 
 let shell = require('shelljs');
-let fs = require('fs')
+let path = require('path');
 let argv = process.argv[2] || 'all'
 let reg = /[^\w\/]/
 
@@ -27,16 +27,14 @@ if (argv == 'all') {
   console.log(`run all`)
   require('./dev-server.js')
 } else {
-  var src = `./src/page/${argv}`
-  fs.exists(src, function (exists) {
-    if (!exists) {
-      shell.mkdir('-p', src)
-      shell.cp('-R', './src/widget/layout/', src)
-      console.log(`create ${src} and run all`)
-      require('./dev-server.js')
-    } else {
-      console.log(`has ${src} in directory and run all`)
-      require('./dev-server.js')
-    }
-  })
+  var src = path.resolve(__dirname, `../src/page/${argv}`);
+  if (shell.test('-d', src)) {
+    console.log(`has ${src} in directory and run all`)
+    require('./dev-server.js')
+  } else {
+    shell.mkdir('-p', src)
+    shell.cp('-R', './src/widget/layout/', src)
+    console.log(`create ${src} and run all`)
+    require('./dev-server.js')
+  }
 }

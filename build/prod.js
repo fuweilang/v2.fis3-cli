@@ -1,7 +1,7 @@
 "use strict";
 
 var shell = require('shelljs')
-let fs = require('fs')
+let path = require('path');
 let argv = process.argv[2]
 let reg = /[^\w\/]/
 
@@ -27,14 +27,12 @@ if (argv == 'all') {
   console.log(`build all`)
   require('./product.js')
 } else {
-  var src = `./src/page/${argv}`
-  fs.exists(src, function (exists) {
-    if (!exists) {
-      console.log(`please create ${argv} first`)
-      return
-    } else {
-      console.log(`build ${argv}`)
-      require('./product.js')
-    }
-  })
+  var src = path.resolve(__dirname, `../src/page/${argv}`);
+  if (shell.test('-d', src)) {
+    console.log(`build ${argv}`)
+    require('./product.js')
+  } else {
+    console.log(`please create ${argv} first`)
+    return
+  }
 }

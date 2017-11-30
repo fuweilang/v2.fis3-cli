@@ -1,7 +1,7 @@
 "use strict";
 
 let shell = require('shelljs');
-var fs = require('fs')
+let path = require('path');
 var argv = process.argv[2]
 var reg = /[^\w\/]/
 
@@ -26,19 +26,19 @@ if (argv.match(reg)) {
 
 if (argv == 'all' || argv == 'dist') {
   console.log(`romove all`)
-  rm('-rf', 'dist')
+  shell.rm('-rf', 'dist')
 } else {
   var buildsrc = `./dist/page/${argv}`
   var buildjs = `./dist/static/page/${argv}`
   var buildpkg = `./dist/static/pkg/page/${argv}`
-  fs.exists(buildsrc, function (exists) {
-    if (exists) {
-      console.log(`${buildsrc} is removed`)
-      shell.rm('-rf', buildsrc)
-      shell.rm('-rf', buildjs)
-      shell.rm('-rf', buildpkg)
-    } else {
-      console.log(`${buildsrc} is not existed`)
-    }
-  })
+
+  if (shell.test('-d', buildsrc)) {
+    console.log(`${buildsrc} is removed`)
+    shell.rm('-rf', buildsrc)
+    shell.rm('-rf', buildjs)
+    shell.rm('-rf', buildpkg)
+  } else {
+    console.log(`${buildsrc} is not existed`)
+    return
+  }
 }
